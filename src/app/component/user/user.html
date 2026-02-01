@@ -1,0 +1,18 @@
+  <div *appRole="'User'" class="mb-10">
+      <h2 class="text-2xl mb-6 font-semibold text-purple-600">User Products</h2>
+      <div class="flex flex-wrap -mx-3">
+        @for (product of users; track product.id) {
+          <div class="w-full sm:w-1/2 md:w-1/4 px-3 mb-6">
+            <p-card class="bg-purple-50 border-l-4 border-purple-400 hover:shadow-xl transition-transform transform hover:-translate-y-1 duration-300 rounded-lg p-4 flex flex-col items-center">
+              <ng-template pTemplate="title">
+                <span class="text-purple-800 font-semibold text-center">{{ product.title }}</span>
+              </ng-template>
+              <ng-template pTemplate="content" class="flex flex-col items-center">
+                <img [src]="product.image" class="h-32 w-auto object-contain mb-3 rounded-lg shadow-sm" />
+                <p class="font-bold text-lg text-purple-700">$ {{ product.price }}</p>
+              </ng-template>
+            </p-card>
+          </div>
+        }
+      </div>
+    </div>

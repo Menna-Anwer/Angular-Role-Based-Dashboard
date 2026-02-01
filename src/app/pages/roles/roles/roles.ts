@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { RoleService } from '../../../services/RoleService';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CommonModule } from '@angular/common';
+import { ROLE } from '../../../module/roles-type';
 @Component({
   selector: 'app-roles',
   imports: [CommonModule, FormsModule, RadioButtonModule, ButtonModule],
@@ -14,11 +15,12 @@ import { CommonModule } from '@angular/common';
 export class Roles {
   private _RoleService = inject(RoleService);
   private _Router = inject(Router);
-  selectedRole: string | null = null;
-  roles = [
-    { name: 'Admin' },
-    { name: 'Instructor' },
-    { name: 'User' },
+  selectedRole: ROLE | null = null;
+
+  roles: { name: ROLE }[] = [
+    { name: ROLE.Admin },
+    { name: ROLE.Instructor },
+    { name: ROLE.User },
   ];
 
   submit() {

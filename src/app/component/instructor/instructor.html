@@ -1,0 +1,17 @@
+  <div *appRole="'Instructor'" class="mb-10">
+      <h2 class="text-2xl mb-6 font-semibold text-green-600">Instructor Posts</h2>
+      <div class="flex flex-wrap -mx-3">
+        @for (post of instructors; track post.id) {
+          <div class="w-full md:w-1/2 px-3 mb-6">
+            <p-card class="bg-green-50 border-l-4 border-green-400 hover:shadow-xl transition-transform transform hover:-translate-y-1 duration-300 rounded-lg p-4">
+              <ng-template pTemplate="title">
+                <span class="text-green-800 font-semibold">{{ post.title }}</span>
+              </ng-template>
+              <ng-template pTemplate="content">
+                <p class="text-gray-700">{{ post.body }}</p>
+              </ng-template>
+            </p-card>
+          </div>
+        }
+      </div>
+    </div>

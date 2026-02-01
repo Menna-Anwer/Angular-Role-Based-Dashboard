@@ -5,15 +5,22 @@ import { DataService } from '../../../services/data-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
+import { Instructor } from '../../../component/instructor/instructor';
+import { User } from '../../../component/user/user';
+import { Admin } from '../../../component/admin/admin';
+import { ROLE } from '../../../module/roles-type';
 
 @Component({
   selector: 'app-data',
- imports: [CommonModule, CardModule, RoleDirective],
+  imports: [Admin, Instructor, User],
   templateUrl: './data.html',
   styleUrl: './data.css',
 })
 export class Data {
-  data = signal<User[] | Post[] | Product[]>([]);
+  data = signal<IUser[] | Post[] | Product[]>([]);
+  admin = signal<IUser[]>([]);
+  instructors = signal<Post[]>([]);
+  users = signal<Product[]>([]);
   loading = signal(false);
   error = signal('');
   private destroyRef = inject(DestroyRef);
@@ -22,15 +29,15 @@ export class Data {
   ngOnInit() {
     this.loadData();
   }
-   get users() {
-    return this.data() as User[];
-  }
-  get posts() {
-    return this.data() as Post[];
-  }
-  get products() {
-    return this.data() as Product[];
-  }
+  // get users() {
+  //   return this.data() as User[];
+  // }
+  // get posts() {
+  //   return this.data() as Post[];
+  // }
+  // get products() {
+  //   return this.data() as Product[];
+  // }
   loadData() {
     const role = this._RoleService.getRole();
     console.log("role", role)
@@ -40,6 +47,17 @@ export class Data {
       this._DataService.getData(role).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: (res) => {
           this.data.set(res);
+            switch (role) {
+            case ROLE.Admin:
+              this.admin.set(res as IUser[]);
+              break;
+            case ROLE.Instructor:
+              this.instructors.set(res as Post[]);
+              break;
+            case ROLE.User:
+              this.users.set(res as Product[]);
+              break;
+          }
           console.log("data", res)
           this.loading.set(false);
         },
