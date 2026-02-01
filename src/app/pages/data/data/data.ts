@@ -29,15 +29,6 @@ export class Data {
   ngOnInit() {
     this.loadData();
   }
-  // get users() {
-  //   return this.data() as User[];
-  // }
-  // get posts() {
-  //   return this.data() as Post[];
-  // }
-  // get products() {
-  //   return this.data() as Product[];
-  // }
   loadData() {
     const role = this._RoleService.getRole();
     console.log("role", role)
